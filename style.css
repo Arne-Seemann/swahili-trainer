@@ -1,0 +1,205 @@
+* {
+  box-sizing: content-box;
+  padding: 0;
+  margin: 0;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+}
+
+:root {
+  font-size: 18px;
+}
+
+body {
+  --background-color: white;
+  --color: black;
+}
+
+/******************************Header Styling********************************/
+
+header {
+  background-color: var(--background-color);
+  color: var(--color);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.header-dark {
+  color: yellow;
+  background-color: rgb(2, 2, 54);
+}
+
+h1 {
+  font-size: 0.8rem;
+  margin-left: 0.2rem;
+  position: relative;
+}
+
+h1::before {
+  content: "❤️";
+}
+
+nav {
+  margin-right: 0.2rem;
+  padding: 0.8rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: inherit;
+  font-size: 0.6rem;
+}
+
+nav a:hover {
+  background-color: rgb(233, 222, 222);
+}
+
+.header-dark a:hover {
+  background-color: darkblue;
+}
+
+.switch {
+  margin: 0.45rem;
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: 50%;
+  border: 2px solid black;
+  box-shadow: 0 0 0.8rem black;
+  border-color: inherit;
+  transition: transform 0.5s ease-in;
+}
+
+.switch.switch-dark {
+  transform: rotate(360deg);
+}
+
+.switch::after {
+  content: "🌞";
+}
+
+.switch-dark {
+  background-color: darkblue;
+  box-shadow: 0 0 0.8rem yellow;
+  border-color: yellow;
+}
+
+.switch-dark::after {
+  content: "🌜";
+}
+/******************************Main Styling********************************/
+
+main {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: linear-gradient(
+    160deg,
+    rgb(68, 68, 227) 5%,
+    rgb(137, 197, 217) 95%
+  );
+}
+
+.main-dark {
+  background-image: linear-gradient(160deg, black 5%, darkblue 95%);
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2.4rem;
+  width: 40%;
+  margin-top: 1.5rem;
+  box-shadow: 0 0 1rem black;
+  background-color: var(--background-color);
+}
+
+.input-container-dark {
+  background-color: rgb(2, 2, 54);
+  box-shadow: 0 0 1rem yellow;
+}
+
+.input {
+  display: block;
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+  background-color: rgb(186, 182, 182);
+  padding: 0.25rem;
+  margin-bottom: 0.1rem;
+}
+
+.add {
+  display: block;
+  height: 1.2rem;
+  width: 2rem;
+  border-radius: 0.4rem;
+  padding: 0.2rem;
+}
+
+.list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.5rem;
+  width: 100%;
+  max-width: 30rem;
+}
+
+.item-container {
+  display: flex;
+  width: 80%;
+  box-shadow: 0 0 0.5rem black;
+}
+
+span {
+  display: inline-block;
+  padding: 0.5rem;
+  background-image: linear-gradient(gray, white);
+  border: 1px solid black;
+  flex: 1;
+  width: 40%;
+  word-wrap: break-word;
+  font-size: 0.8rem;
+}
+
+/******************************Pop Up Styling********************************/
+
+.popUp {
+  position: relative;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.delete {
+  border-radius: 0.2rem;
+  border: none;
+  padding: 0.25rem;
+}
+
+.edit {
+  display: block;
+  border: none;
+  outline: none;
+  border-radius: 0.2rem;
+  background-color: rgb(186, 182, 182);
+  padding: 0.25rem;
+  margin-bottom: 0.1rem;
+  width: 100%;
+  max-width: fit-content;
+}
+
+.edit-button {
+  position: absolute;
+  right: 0%;
+  padding: 0.25rem;
+  border-radius: 0.2rem;
+  border: none;
+}
