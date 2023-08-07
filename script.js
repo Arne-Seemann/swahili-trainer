@@ -28,15 +28,20 @@ function createNewWord(element) {
   const yourLanguageWord = document.createElement("span");
   const txt = `${element.origin}`;
   yourLanguageWord.append(txt);
+  yourLanguageWord.setAttribute("tabindex", "0");
 
   const swahiliWord = document.createElement("span");
   const txt2 = `${element.swahili}`;
   swahiliWord.append(txt2);
+  swahiliWord.setAttribute("tabindex", "0");
 
   newWord.appendChild(yourLanguageWord);
   newWord.appendChild(swahiliWord);
 
   document.querySelector(".list-container").appendChild(newWord);
+
+  createPopUp(yourLanguageWord);
+  createPopUp(swahiliWord);
 }
 
 function renderList() {
@@ -52,45 +57,74 @@ document.querySelector(".switch").addEventListener("click", () => {
     .classList.toggle("input-container-dark");
   document.querySelector("header").classList.toggle("header-dark");
   document.querySelector(".switch").classList.toggle("switch-dark");
+  document
+    .querySelector(".dropdown-menu")
+    .classList.toggle("dropdown-menu-dark");
 });
 
-document.querySelector(".list-container").addEventListener("click", (e) => {
-  if (e.target.tagName === "SPAN" && e.target.childElementCount === 0) {
-    const popUp = document.createElement("div");
-    popUp.className = "popUp";
-    const popUpInput = document.createElement("input");
-    popUpInput.className = "edit";
-    popUpInput.setAttribute("placeholder", "...edit");
-    const popUpButtonEdit = document.createElement("button");
-    popUpButtonEdit.className = "edit-button";
-    popUpButtonEdit.textContent = "Edit";
-    popUp.appendChild(popUpButtonEdit);
-    const popUpButton = document.createElement("button");
-    popUpButton.className = "delete";
-    popUpButton.textContent = "delete";
+function createPopUp(word) {
+  const popUp = document.createElement("div");
+  popUp.className = "popUp";
+  const InputEdit = document.createElement("input");
+  InputEdit.className = "edit";
+  InputEdit.setAttribute("placeholder", "...edit");
+  const buttonEdit = document.createElement("button");
+  buttonEdit.className = "edit-button";
+  buttonEdit.textContent = "Edit";
+  buttonEdit.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const Word = popUp.parentElement;
+    const txtNode = Word.childNodes[0];
+    txtNode.nodeValue = InputEdit.value;
+    InputEdit.value = "";
+  });
 
-    popUp.appendChild(popUpInput);
-    popUp.appendChild(popUpButton);
-    e.target.appendChild(popUp);
-
-    const element = e.target;
-
-    popUpButtonEdit.addEventListener("click", () => {
-      popUp.parentElement.textContent = popUpInput.value;
-    });
-    popUpButton.addEventListener("click", () => {
-      for (i = 0; i < vocabList.length; i++) {
-        if (vocabList[i].origin === element.parentElement.id) {
-          vocabList.splice(i, 1);
-          break;
-        }
+  const buttonDelete = document.createElement("button");
+  buttonDelete.className = "delete-button";
+  buttonDelete.textContent = "Delete";
+  buttonDelete.addEventListener("click", () => {
+    const Word = popUp.parentElement;
+    for (i = 0; i < vocabList.length; i++) {
+      if (Word.parentElement.id === vocabList[i].origin) {
+        Word.parentElement.remove();
+        vocabList.splice(i, 1);
+        localStorage.setItem("Vocabulary", JSON.stringify(vocabList));
+        break;
       }
-      localStorage.setItem("Vocabulary", JSON.stringify(vocabList));
-      element.parentElement.remove();
-    });
-  } else if (e.target.childElementCount > 0) {
-    document.querySelector(".popUp").remove();
+    }
+  });
+
+  popUp.appendChild(InputEdit);
+  popUp.appendChild(buttonEdit);
+  popUp.appendChild(buttonDelete);
+  word.appendChild(popUp);
+}
+
+document.addEventListener("click", (e) => {
+  if (e.target.matches("[data-dropdown-button]")) {
+    e.target.closest("[data-dropdown]").classList.toggle("focus");
   }
+  const dropdowns = document.querySelectorAll("[data-dropdown]");
+  dropdowns.forEach((dropdown) => {
+    if (!dropdown.contains(e.target)) {
+      dropdown.classList.remove("focus");
+    }
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (e.target.tagName === "SPAN") {
+    e.target.classList.toggle("active");
+  }
+  const isPopUp = e.target.matches(".popUp");
+  if (isPopUp) return;
+
+  const popUps = document.querySelectorAll(".popUp");
+  popUps.forEach((popUp) => {
+    if (!popUp.parentElement.contains(e.target)) {
+      popUp.parentElement.classList.remove("active");
+    }
+  });
 });
 
 renderList();

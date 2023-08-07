@@ -40,23 +40,52 @@ h1::before {
   content: "❤️";
 }
 
-nav {
-  margin-right: 0.2rem;
-  padding: 0.8rem;
+.dropdown {
+  position: relative;
+  margin-right: 1rem;
 }
 
-nav a {
-  text-decoration: none;
+.dropdown-button {
+  border: none;
+  outline: none;
+  background-color: inherit;
   color: inherit;
+}
+
+.dropdown-menu {
+  position: absolute;
+  z-index: 1;
+  right: 0%;
+  top: calc(100% + 0.25rem);
+  opacity: 0;
+  transform: translateY(-40%);
+  transition: opacity 150ms ease-in, transform 150ms ease-in;
+  pointer-events: none;
+  box-shadow: 0 0 0.8rem black;
+  background-color: white;
+  padding: 0.5rem;
+  min-width: max-content;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.dropdown.focus > .dropdown-menu {
+  opacity: 1;
+  transform: translate(0);
+  pointer-events: initial;
+}
+
+.dropdown-menu-dark {
+  background-color: rgb(2, 2, 54);
+  box-shadow: 0 0 0.8rem yellow;
+  color: yellow;
+}
+
+.dropdown-menu a {
+  color: inherit;
+  text-decoration: none;
   font-size: 0.6rem;
-}
-
-nav a:hover {
-  background-color: rgb(233, 222, 222);
-}
-
-.header-dark a:hover {
-  background-color: darkblue;
 }
 
 .switch {
@@ -157,6 +186,7 @@ main {
 }
 
 span {
+  position: relative;
   display: inline-block;
   padding: 0.5rem;
   background-image: linear-gradient(gray, white);
@@ -170,36 +200,27 @@ span {
 /******************************Pop Up Styling********************************/
 
 .popUp {
-  position: relative;
-  border: 1px solid black;
-  border-radius: 0.2rem;
+  position: absolute;
+  top: calc(100% + 0.05rem);
+  right: 0%;
+  opacity: 0;
+  transform: translateY(-40%);
+  pointer-events: none;
+  transition: opacity 150ms ease-in, transform 150ms ease-in;
+  background-color: lightgray;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.delete {
-  border-radius: 0.2rem;
-  border: none;
-  padding: 0.25rem;
-}
-
-.edit {
-  display: block;
-  border: none;
-  outline: none;
-  border-radius: 0.2rem;
-  background-color: rgb(186, 182, 182);
-  padding: 0.25rem;
-  margin-bottom: 0.1rem;
   width: 100%;
-  max-width: fit-content;
+  z-index: 1;
+}
+
+span.active > .popUp {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: initial;
 }
 
 .edit-button {
   position: absolute;
   right: 0%;
-  padding: 0.25rem;
-  border-radius: 0.2rem;
-  border: none;
 }

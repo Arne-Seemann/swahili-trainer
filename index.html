@@ -16,8 +16,14 @@
         <h1>Winnies Swahili Trainer</h1>
 
         <nav>
-            <a href="#">My List</a>
-            <a href="#">Trainer</a>
+            <div class="dropdown" data-dropdown>
+                <button class="dropdown-button" data-dropdown-button>Menu</button>
+                <div class="dropdown-menu">
+                    <a href="#">My List</a>
+                    <a href="#">Trainer</a>
+                </div>
+            </div>
+
         </nav>
 
     </header>
@@ -28,8 +34,7 @@
             <button class="add">Add</button>
         </div>
 
-        <div class="list-container">
-        </div>
+        <div class="list-container"></div>
     </main>
     <script src="script.js"></script>
 </body>
